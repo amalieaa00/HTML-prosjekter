@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<style>
+    body  {background-color:darkcyan;}
+    button{background-color: powderblue; border: 0ch;}
+    h1{font-family: cursive; font-size:medium;
+    color: whitesmoke;
+    text-align: center;
+    }
+    input{display: none;}
+    ol{text-align-last: left;}
+    h3{display: none; text-align: left;}
+</style>
+<html lang="no">
+<head>
+    
+    <title>Kalender</title>
+</head>
+<body>
+    <h1> Velkommen til kalenderen!</h1>
+    <h2>Hva vil du gjøre?</h2>
+    <button id="k1" style="text-align: ;">Legg til</button>
+    <button id="k2" style="text-align: center;">Vis hendelser</text-a>
+    </button>
+    <input type="text" id="t1" name="dato" placeholder="00.00.00">
+
+    <input type="text" id="t2" name="gjøremål" placeholder="Oppføring">
+    <button id="lagre">Lagre</button>
+    <h3 id="o3">Alle hendelser</h3>
+    <ol id="lagret">
+    </ol>
+</body>
+<head>
+    <script>
+        var alleElementer = document.getElementById("lagret")
+
+        var hendelser = {}
+        var knapp = document.getElementById("lagre")
+        knapp.style.display="none"
+        knapp.addEventListener("click",leggTil)
+        var lt = document.getElementById("k1")
+        lt.addEventListener("click",lagNy)
+        function leggTil(){
+            
+            var in1 = document.getElementById("t1")
+            var dato = in1.value;
+            var in2 = document.getElementById("t2")
+            var akt = in2.value;
+            if(dato in hendelser){
+                hendelser[dato].push(akt)
+            } else{
+                var evList = []
+                evList.push(akt)
+                hendelser[dato] = evList
+            }
+            in1.style.display="none"
+            in2.style.display="none" 
+            knapp.style.display="none"
+        }
+        function lagNy(){
+            t1.style.display="block"
+            t2.style.display="block"
+            knapp.style.display="block"
+        }
+        function vis(){
+            var o3 = document.getElementById("o3")
+            o3.style.display="block"
+            for(var key in hendelser){
+                alleElementer.innerHTML=key+":"+hendelser[key]
+
+            }
+        }
+        var visKnapp = document.getElementById("k2")
+        k2.addEventListener("click",vis)
+    </script>
+</head>
+</html>
