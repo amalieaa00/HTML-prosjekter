@@ -17,11 +17,12 @@
 </head>
 <body>
     <h1> Velkommen til kalenderen!</h1>
+    <p id="tid"></p>
     <h2>Hva vil du gjøre?</h2>
     <button id="k1" style="text-align: ;">Legg til</button>
     <button id="k2" style="text-align: center;">Vis hendelser</text-a>
     </button>
-    <input type="text" id="t1" name="dato" placeholder="00.00.00">
+    <input type="date" id="t1" name="dato" placeholder="00.00.00">
 
     <input type="text" id="t2" name="gjøremål" placeholder="Oppføring">
     <button id="lagre">Lagre</button>
@@ -32,6 +33,9 @@
 <head>
     <script>
         var alleElementer = document.getElementById("lagret")
+        const dato = new Date()
+        var tid = document.getElementById("tid")
+        tid.innerHTML = dato.getDate()+"."+dato.getMonth()+"."+dato.getFullYear()+"\n"+dato.getHours()+"."+dato.getMinutes()+"."+dato.getSeconds()
 
         var hendelser = {}
         var knapp = document.getElementById("lagre")
@@ -56,6 +60,7 @@
             in2.style.display="none" 
             knapp.style.display="none"
         }
+
         function lagNy(){
             t1.style.display="block"
             t2.style.display="block"
