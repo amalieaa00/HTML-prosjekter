@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <style>
+        
+        body{background-image: url("bakgrunn.jpg");}
+        textarea{background-color: powderblue;}
+        input{color:powderblue;}
+        h2{color:lightblue;}
+    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notater</title>
+</head>
+<body>
+    <h1>Personlige notater</h1>
+    <h2>Her kan du legge til nye og se tidligere notater</h2>
+    <label style="display: none;" id="sl" for="sok"></label>
+    <input id="sok" style="display: none;"" type="text" name="Søk">
+    <button style="display: none;" id="sokKnapp">Søk</button>
+    <label style="display: none;" id="tl" for="tittel">Titel</label>
+    <input style="display: none;" id="tittel" type="text" name="tittel">
+    <label style="display: none;" id="nl" for="notat">Nytt notat:</label>
+    <textarea style="display: none;" name="notat" id="notat" cols="60" rows="20"></textarea>
+    <button style="display: none;" id="lagre">Lagre</button>
+    <button  id="vis">Vis alle</button>
+    <button id="finn">Finn notat</button>
+    <button id="add">Lag nytt</button>
+    <ol id="knapper"></ol>
+    <p id="nt"></p>
+    <ol id="result"></ol>
+    <script>
+        var results = document.getElementById("result")
+        var tl = document.getElementById("tl")
+        var nl = document.getElementById("nl")
+        var sok = document.getElementById("sok")
+        var finn=document.getElementById("finn")
+        var leggTil = document.getElementById("add")
+        var sokKnapp=document.getElementById("sokKnapp")
+        sokKnapp.addEventListener("click",soek)
+        leggTil.addEventListener("click",addNew)
+        var tittel =document.getElementById("tittel")
+        var txt = document.getElementById("notat")
+        var filer =[]
+        var lagre = document.getElementById("lagre")
+        lagre.addEventListener("click",lagreNotat)
+        var vis =document.getElementById("vis")
+        vis.addEventListener("click",visAlle)
+        for (var i = 0; i < localStorage.length; i++) {
+            filer.push(localStorage.key(i));
+        }
+        function lagreNotat(){
+            lagre.style.display="none"
+            nl.style.display="none"
+            tl.style.display="none"
+            var filnavn = tittel.value+".txt"
+            var tekst = txt.value
+            const fil = new File([tekst],filnavn)
+            filer.push(filnavn)
+            tittel.style.display="none"
+            txt.style.display="none"
+
+            localStorage.setItem(filnavn, tekst);
+            tittel.value=""
+            txt.value=""
+        }
+        var knapper = document.getElementById("knapper")
+        function visAlle(){
+            for(var i =0;i<filer.length;i++){
+                var knapp = document.createElement("button")
+                knapp.innerHTML=filer[i]
+                knapp.id=filer[i]
+                knapp.addEventListener("click",visNotat)
+                knapper.append(knapp)
+
+            }
+
+        }
+        function visNotat(event){
+            var navn = event.target.innerHTML
+            var tekst = localStorage.getItem(navn)
+            var plasser = document.getElementById("nt")
+            plasser.innerHTML=tekst
+        }
+        finn.addEventListener("click",finnNotat)
+        function finnNotat(){
+            sok.style.display="block"
+            sokKnapp.style.display="block"
+
+        }
+        function addNew(){
+            tittel.style.display="block"
+            
+            txt.style.display="block"
+            tl.style.display="block"
+            nl.style.display="block"
+            lagre.style.display="block"
+        }
+        function soek(){
+            sokKnapp.style.display="none"
+            sok.style.display="none"
+            var res = sok.value
+            resultat = document.getElementById(res)
+
+            results.append(resultat)
+
+
+        }
+
+</script>
+</body>
+</html>
